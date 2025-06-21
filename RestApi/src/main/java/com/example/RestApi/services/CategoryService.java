@@ -35,5 +35,13 @@ public class CategoryService {
         return CategoryMapper.toCategoryDTO(category);
     }
     //delete category
+    public boolean deleteCategory(Long id){
+       try {
+           categoryRepository.deleteById(id);
+           return true;
+       } catch (Exception e) {
+      return false;
+       }
+    }
 }
 

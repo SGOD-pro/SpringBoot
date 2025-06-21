@@ -1,8 +1,8 @@
 package com.example.RestApi.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
 
-
+//@AllArgsConstructor
 public class ProductsDTO {
 
 
@@ -18,7 +18,6 @@ public class ProductsDTO {
     private int price;
     private String details;
     private String name;
-
     private Long category_id;
 
     public Long getId() {
@@ -57,6 +56,7 @@ public class ProductsDTO {
         return category_id;
     }
 
+//
     public void setCategory_id(Long category_id) {
         this.category_id = category_id;
     }

@@ -1,6 +1,7 @@
 package com.example.RestApi.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +14,7 @@ public class Product {
     private int price;
     private String details;
     private String name;
-
+    public Product(){}
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
