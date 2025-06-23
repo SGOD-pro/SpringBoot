@@ -7,11 +7,13 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-
-
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryDTO {
+    private Long id;
+    private String name;
+    private List<ProductsDTO> products;
+
     public Long getId() {
         return id;
     }
@@ -19,10 +21,6 @@ public class CategoryDTO {
     public void setId(Long id) {
         this.id = id;
     }
-
-    private Long id;
-    private String name;
-    private List<ProductsDTO> products;
 
     public String getName() {
         return name;

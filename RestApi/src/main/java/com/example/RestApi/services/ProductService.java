@@ -4,6 +4,7 @@ package com.example.RestApi.services;
 import com.example.RestApi.dto.ProductsDTO;
 import com.example.RestApi.entity.Category;
 import com.example.RestApi.entity.Product;
+import com.example.RestApi.exception.CategoryNotFound;
 import com.example.RestApi.mapper.CategoryMapper;
 import com.example.RestApi.mapper.ProductMapper;
 import com.example.RestApi.repository.CategoryRepository;
@@ -26,7 +27,7 @@ public class ProductService {
 
     public ProductsDTO createproduct(ProductsDTO productsDTO) {
         Category category = categoryRepository.findById(productsDTO.getCategory_id()).orElseThrow(
-                () -> new RuntimeException("Category not found"));
+                () -> new CategoryNotFound("Category id "+productsDTO.getCategory_id()+" not exists"));
 
         Product product = ProductMapper.toProductEntity(productsDTO, category);
         product = productRepository.save(product);
@@ -51,7 +52,7 @@ public class ProductService {
     }
     public ProductsDTO update(Long id,ProductsDTO product){
         Product pro=productRepository.findById(id).orElseThrow(()->new RuntimeException("Product not found"));
-        Category cat=categoryRepository.findById(product.getCategory_id()).orElseThrow(()->new RuntimeException("Category not found"));
+        Category cat=categoryRepository.findById(product.getCategory_id()).orElseThrow(()->new CategoryNotFound("Category id "+product.getCategory_id()+" not exists"));
         pro.setCategory(cat);
         pro.setName(product.getName());
         pro.setDetails(product.getDetails());
