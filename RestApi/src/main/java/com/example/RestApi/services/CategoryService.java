@@ -24,6 +24,7 @@ public class CategoryService {
         category= categoryRepository.save(category);
         return CategoryMapper.toCategoryDTO(category);
     }
+
     //get all category
     public List<CategoryDTO> getAllCategories(){
         return categoryRepository.findAll().stream().map(CategoryMapper::toCategoryDTO).toList();

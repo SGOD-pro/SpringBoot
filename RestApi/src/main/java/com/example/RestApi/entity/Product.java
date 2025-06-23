@@ -15,8 +15,9 @@ public class Product {
     private String details;
     private String name;
     public Product(){}
-    @ManyToOne
-    @JoinColumn(name = "category_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    // @ManyToOne(fetch = FetchType.EAGER) //it also joins the category table, which is not required when i just need the products
+    @JoinColumn(name = "category_id",nullable = false)
     private Category category;
 
     public Long getId() {

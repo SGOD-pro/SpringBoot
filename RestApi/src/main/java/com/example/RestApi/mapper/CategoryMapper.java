@@ -8,10 +8,7 @@ public class CategoryMapper {
         if (catDTO == null) {
             throw new IllegalArgumentException("CategoryDTO is null");
         }
-
-        // 🔹 Debugging log
         System.out.println("CategoryDTO Name: " + catDTO.getName());
-
         Category category = new Category();
         category.setName(catDTO.getName());
         return category;

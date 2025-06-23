@@ -41,12 +41,12 @@ public class ProductService {
         Product pro=productRepository.findById(id).orElseThrow(()->new RuntimeException("Product Not Found."));
         return ProductMapper.toProductDTO(pro);
     }
-    public boolean deleteProduct(Long id){
-        try{
+    public boolean deleteProduct(Long id) {
+        if (productRepository.existsById(id)) {
             productRepository.deleteById(id);
-            return true;
-        }catch(Exception e) {
-            return false;
+            return true; // Successfully deleted
+        } else {
+            return false; // Product with given ID doesn't exist
         }
     }
     public ProductsDTO update(Long id,ProductsDTO product){
