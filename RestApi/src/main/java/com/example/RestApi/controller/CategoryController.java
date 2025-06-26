@@ -4,11 +4,14 @@ import com.example.RestApi.services.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/category")
+@EnableMethodSecurity(prePostEnabled = true)
 public class CategoryController {
 
     private CategoryService categorySrv;
@@ -33,6 +36,7 @@ public class CategoryController {
 //        }
 //    }
 //After Global Exception
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO){
         return new ResponseEntity<>(categorySrv.createCategory(categoryDTO),HttpStatus.CREATED);
@@ -50,8 +54,10 @@ public class CategoryController {
     }
 
     //delete category
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public boolean deleteCategory(@PathVariable Long id){
+
         return categorySrv.deleteCategory(id);
     }
 }

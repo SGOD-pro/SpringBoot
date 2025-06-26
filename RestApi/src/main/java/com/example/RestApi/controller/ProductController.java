@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
+@EnableMethodSecurity(prePostEnabled = true)
 public class ProductController {
 
     @Autowired
@@ -29,6 +32,7 @@ public class ProductController {
         return  new ResponseEntity<>(productService.getProductById(id), HttpStatusCode.valueOf(200));
     }
     //create product
+    @PreAuthorize("hasAuthority('ROLE_SALER')")
     @PostMapping("/create")
     public ResponseEntity<ProductsDTO> createProduct(@RequestBody ProductsDTO productsDTO){
         return new ResponseEntity<>(productService.createproduct(productsDTO), HttpStatus.CREATED);
@@ -41,6 +45,8 @@ public class ProductController {
     }
 
     //delete product
+    @PreAuthorize("hasAuthority('ROLE_SALER')")
+    //@PreAuthorize("hasAuthority('ROLE_SALER') or hasAuthority('ROLE_ADMIN')") for both..
     @DeleteMapping("/{id}")
     public boolean delete(@PathVariable Long id){
         return productService.deleteProduct(id);
